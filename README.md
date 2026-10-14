@@ -1,8 +1,13 @@
-# ⚡ WebP Image Converter (High-Performance Client-Side Optimizer)
+   # ⚡ Webpify
 
-A highly polished, responsive client-side web application designed to convert and compress digital images (PNG, JPEG, GIF, BMP, etc.) into modern Google WebP format. No image data is uploaded to external servers—100% locally optimized in the browser using HTML5 Canvas.
+   Convert images to WebP right in your browser. Fast, private, and no uploads.
 
-> **Bahasa Indonesia:** Dokumen panduan teknis, fitur, dan manfaat SEO lengkap tersedia di file [DOKUMENTASI.md](./DOKUMENTASI.md).
+   > **Live:** https://webpify.wahyumahmudi.com *(coming soon)*
+   > **Bahasa Indonesia:** Panduan teknis dan manfaat SEO lengkap ada di [DOKUMENTASI.md](./DOKUMENTASI.md).
+
+   A client-side web app that converts and compresses images (PNG, JPEG, GIF, BMP, etc.) into Google's WebP format using the HTML5 Canvas API. Your files never leave your device.
+
+   > 🤖 **About this project:** the first version was generated as a one-shot prototype with Google AI Studio, then customized and maintained by me.
 
 ---
 
