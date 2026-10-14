@@ -343,9 +343,9 @@ export default function App() {
                 </div>
 
                 <div className="flex flex-wrap gap-2 justify-center pt-2">
-                  <span className="text-[10px] bg-brand-gray-800 border border-brand-gray-700 text-brand-gray-600 px-2.5 py-1 rounded">No Server Uploads</span>
-                  <span className="text-[10px] bg-brand-gray-800 border border-brand-gray-700 text-brand-green px-2.5 py-1 rounded">100% Client-Side</span>
-                  <span className="text-[10px] bg-brand-gray-800 border border-brand-gray-700 text-brand-gray-600 px-2.5 py-1 rounded">SEO friendly</span>
+                  <span className="text-xs font-medium bg-green-900/40 text-green-200 px-3 py-1 rounded-full">No Server Uploads</span>
+                  <span className="text-xs font-medium bg-green-900/40 text-green-200 px-3 py-1 rounded-full">100% Client-Side</span>
+                  <span className="text-xs font-medium bg-green-900/40 text-green-200 px-3 py-1 rounded-full">SEO Friendly</span>
                 </div>
               </div>
             </div>
