@@ -280,20 +280,20 @@ export default function App() {
               <h1 className="text-xl md:text-2xl font-bold tracking-tight text-white flex items-center gap-2">
                 WebP <span className="text-brand-green">Converter</span>
               </h1>
-              <p className="text-xs text-brand-gray-600 font-mono mt-0.5">HIGH-PERFORMANCE CLIENT OPTIMIZER</p>
+              <p className="text-sm text-brand-gray-600 mt-0.5">HIGH-PERFORMANCE CLIENT OPTIMIZER</p>
             </div>
           </div>
           
           <div className="flex items-center gap-3">
             <button
               onClick={() => setShowDocModal(true)}
-              className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-brand-gray-800 border border-brand-gray-700 hover:border-brand-green/50 text-brand-gray-600 hover:text-brand-green transition-all duration-300 text-sm font-medium font-mono"
+              className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-brand-gray-800 border border-brand-gray-700 hover:border-brand-green/50 text-brand-gray-600 hover:text-brand-green transition-all duration-300 text-sm font-medium"
               id="btn_view_doc"
             >
               <BookOpen className="w-4 h-4" />
               <span>DOKUMENTASI</span>
             </button>
-            <span className="hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-brand-green/10 border border-brand-green/30 text-[10px] text-brand-green font-mono uppercase tracking-widest animate-pulse">
+            <span className="hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-brand-green/10 border border-brand-green/30 text-[10px] text-brand-green uppercase tracking-widest animate-pulse">
               ● Client Mode
             </span>
           </div>
@@ -343,9 +343,9 @@ export default function App() {
                 </div>
 
                 <div className="flex flex-wrap gap-2 justify-center pt-2">
-                  <span className="text-[10px] font-mono bg-brand-gray-800 border border-brand-gray-700 text-brand-gray-600 px-2.5 py-1 rounded">No Server Uploads</span>
-                  <span className="text-[10px] font-mono bg-brand-gray-800 border border-brand-gray-700 text-brand-green px-2.5 py-1 rounded">100% Client-Side</span>
-                  <span className="text-[10px] font-mono bg-brand-gray-800 border border-brand-gray-700 text-brand-gray-600 px-2.5 py-1 rounded">SEO friendly</span>
+                  <span className="text-[10px] bg-brand-gray-800 border border-brand-gray-700 text-brand-gray-600 px-2.5 py-1 rounded">No Server Uploads</span>
+                  <span className="text-[10px] bg-brand-gray-800 border border-brand-gray-700 text-brand-green px-2.5 py-1 rounded">100% Client-Side</span>
+                  <span className="text-[10px] bg-brand-gray-800 border border-brand-gray-700 text-brand-gray-600 px-2.5 py-1 rounded">SEO friendly</span>
                 </div>
               </div>
             </div>
@@ -357,8 +357,8 @@ export default function App() {
                   <Settings className="w-4.5 h-4.5 text-brand-green" />
                   <span className="font-semibold text-sm">Target Tingkat Kualitas WebP Default</span>
                 </div>
-                <p className="text-xs text-brand-gray-600 leading-normal">
-                  Rekomendasi SEO: <span className="text-brand-green font-mono">75%</span> - Menghasilkan ukuran file terkecil tanpa mengurangi visual secara kasat mata.
+                <p className="text-sm text-brand-gray-600 leading-normal">
+                  Rekomendasi SEO: <span className="text-brand-green">75%</span> - Menghasilkan ukuran file terkecil tanpa mengurangi visual secara kasat mata.
                 </p>
               </div>
               <div className="flex items-center gap-4 w-full md:w-auto">
@@ -383,13 +383,13 @@ export default function App() {
                 <div className="flex justify-between items-center px-1">
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-semibold text-white">Antrean File</span>
-                    <span className="text-xs px-2 py-0.5 rounded-full bg-brand-gray-800 border border-brand-gray-700 text-brand-gray-600 font-mono font-bold">
+                    <span className="text-xs px-2 py-0.5 rounded-full bg-brand-gray-800 border border-brand-gray-700 text-brand-gray-600 font-bold font-mono">
                       {images.length} File
                     </span>
                   </div>
                   <button
                     onClick={clearQueue}
-                    className="text-xs font-mono text-brand-gray-600 hover:text-red-400 flex items-center gap-1.5 py-1 px-2.5 rounded-lg hover:bg-red-400/10 border border-transparent hover:border-red-400/20 transition-all duration-300"
+                    className="text-xs text-brand-gray-600 hover:text-red-400 flex items-center gap-1.5 py-1 px-2.5 rounded-lg hover:bg-red-400/10 border border-transparent hover:border-red-400/20 transition-all duration-300"
                     id="btn_clear_queue"
                   >
                     <Trash2 className="w-3.5 h-3.5" />
@@ -434,7 +434,7 @@ export default function App() {
                                 {item.name}
                               </p>
                               
-                              <div className="flex flex-wrap gap-x-3 gap-y-1 text-xs text-brand-gray-600 font-mono">
+                              <div className="flex flex-wrap gap-x-3 gap-y-1 text-xs text-brand-gray-600">
                                 <span>{formatSize(item.originalSize)}</span>
                                 <span className="opacity-40">•</span>
                                 <span className="uppercase text-[10px] bg-brand-gray-700 px-1.5 py-0.2 rounded text-brand-gray-600">
@@ -448,7 +448,7 @@ export default function App() {
                           <div className="flex flex-col md:flex-row items-center gap-4 justify-between md:min-w-[320px]">
                             
                             {/* Visual flow sign */}
-                            <div className="flex items-center gap-1.5 text-brand-gray-600 text-xs font-mono">
+                            <div className="flex items-center gap-1.5 text-brand-gray-600 text-xs">
                               <div className="w-1.5 h-1.5 rounded-full bg-brand-gray-600"></div>
                               <ArrowRight className="w-3.5 h-3.5" />
                               <div className="w-1.5 h-1.5 rounded-full bg-brand-green"></div>
@@ -462,13 +462,13 @@ export default function App() {
                                     {formatSize(item.convertedSize)}
                                   </span>
                                   {reduction !== null && (
-                                    <span className="text-[10px] text-brand-green font-mono bg-brand-green/10 border border-brand-green/20 px-1.5 py-0.1 rounded mt-0.5 inline-block">
+                                    <span className="text-[10px] text-brand-green bg-brand-green/10 border border-brand-green/20 px-1.5 py-0.1 rounded mt-0.5 inline-block">
                                       Saved {reduction}%
                                     </span>
                                   )}
                                 </>
                               ) : item.status === 'converting' ? (
-                                <span className="text-xs text-amber-400 font-mono flex items-center gap-1.5 py-1">
+                                <span className="text-xs text-amber-400 flex items-center gap-1.5 py-1">
                                   <RefreshCw className="w-3 h-3 animate-spin text-amber-400" />
                                   Memproses...
                                 </span>
@@ -478,7 +478,7 @@ export default function App() {
                                   Gagal
                                 </span>
                               ) : (
-                                <span className="text-xs text-brand-gray-600 font-mono">
+                                <span className="text-xs text-brand-gray-600">
                                   Siap dikonversi
                                 </span>
                               )}
@@ -546,7 +546,7 @@ export default function App() {
             <div className="bg-brand-gray-800 border border-brand-gray-700 rounded-2xl p-6 shadow-xl relative overflow-hidden" id="analytics_card">
               <div className="absolute top-0 right-0 w-24 h-24 pointer-events-none opacity-[0.03] bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-brand-green to-transparent"></div>
               
-              <h4 className="text-xs font-mono font-bold tracking-wider text-brand-gray-600 uppercase mb-4 flex items-center gap-1.5">
+              <h4 className="text-xs font-bold tracking-wider text-brand-gray-600 uppercase mb-4 flex items-center gap-1.5">
                 <FileCheck className="w-3.5 h-3.5 text-brand-green" />
                 RINGKASAN OPTIMASI BATCH
               </h4>
@@ -558,17 +558,17 @@ export default function App() {
                     {/* Progress Percentage Gauge block */}
                     <div className="bg-brand-gray-900 border border-brand-gray-700/75 rounded-xl p-5 text-center relative overflow-hidden">
                       <div className="space-y-1">
-                        <span className="text-[10px] font-mono text-brand-gray-600 uppercase tracking-widest block">Total Penghematan Ukuran</span>
-                        <h3 className="text-4xl font-black text-brand-green font-mono leading-none tracking-tight">
+                        <span className="text-[10px] text-brand-gray-600 uppercase tracking-widest block">Total Penghematan Ukuran</span>
+                        <h3 className="text-4xl font-black text-brand-green leading-none tracking-tight font-mono">
                           -{averageSavingsPercent}%
                         </h3>
-                        <p className="text-xs text-brand-gray-600 font-mono mt-1">
+                        <p className="text-xs text-brand-gray-600 mt-1">
                           Menyelamatkan <span className="text-white font-semibold">{formatSize(Math.max(0, totalSavedBytes))}</span>
                         </p>
                       </div>
                     </div>
 
-                    <div className="space-y-3 font-mono text-xs">
+                    <div className="space-y-3 text-xs font-mono">
                       <div className="flex justify-between py-1 border-b border-brand-gray-700/40">
                         <span className="text-brand-gray-600">Total File</span>
                         <span className="text-white font-bold">{images.length} Gambar</span>
@@ -602,7 +602,7 @@ export default function App() {
                       ) : (
                         <button
                           disabled
-                          className="w-full py-3 px-4 rounded-xl bg-brand-gray-700 text-brand-gray-600 cursor-not-allowed font-medium font-mono text-xs"
+                          className="w-full py-3 px-4 rounded-xl bg-brand-gray-700 text-brand-gray-600 cursor-not-allowed font-medium text-xs"
                         >
                           Menunggu Konversi Berhasil...
                         </button>
@@ -610,7 +610,7 @@ export default function App() {
                     </div>
                   </>
                 ) : (
-                  <div className="text-center py-6 space-y-2 text-brand-gray-600 font-mono text-xs">
+                  <div className="text-center py-6 space-y-2 text-brand-gray-600 text-xs">
                     <p>Belum ada data visualisasi optimasi.</p>
                     <p className="text-[10px] text-brand-gray-600">Garis grafik dan persentase penghematan hosting akan tampil di sini saat batch file masuk.</p>
                   </div>
@@ -621,7 +621,7 @@ export default function App() {
 
             {/* Educational SEO & PageSpeed Section - Highly tailored for Wahyu's background */}
             <div className="bg-brand-gray-800 border border-brand-gray-700 rounded-2xl p-6 space-y-4">
-              <h4 className="text-xs font-mono font-bold tracking-wider text-brand-gray-600 uppercase flex items-center gap-2">
+              <h4 className="text-xs font-bold tracking-wider text-brand-gray-600 uppercase flex items-center gap-2">
                 <TrendingDown className="w-4 h-4 text-brand-green" />
                 KORELASI WEBP & HASIL SEO
               </h4>
@@ -672,12 +672,12 @@ export default function App() {
                   <BookOpen className="w-5 h-5 text-brand-green" />
                   <div>
                     <h3 className="text-md font-bold text-white">Dokumentasi Proyek WebP Converter</h3>
-                    <p className="text-[10px] font-mono text-brand-gray-600">README_ID.md - Spesifikasi Teknis & Panduan SEO</p>
+                    <p className="text-[10px] text-brand-gray-600">README_ID.md - Spesifikasi Teknis & Panduan SEO</p>
                   </div>
                 </div>
                 <button
                   onClick={() => setShowDocModal(false)}
-                  className="p-1 px-2.5 text-xs text-brand-gray-600 hover:text-white hover:bg-brand-gray-700 rounded-lg transition-colors flex items-center gap-1 font-mono"
+                  className="p-1 px-2.5 text-xs text-brand-gray-600 hover:text-white hover:bg-brand-gray-700 rounded-lg transition-colors flex items-center gap-1"
                   id="btn_close_doc"
                 >
                   <Minimize2 className="w-3.5 h-3.5" />
@@ -720,13 +720,13 @@ export default function App() {
                   <h2 className="text-lg font-bold text-white border-b border-brand-gray-700 pb-1.5">⚡ Manfaat Teknis Format WebP untuk SEO</h2>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="p-4 rounded-xl bg-brand-gray-900 border border-brand-gray-700/60 space-y-2">
-                      <h4 className="font-bold text-brand-green font-mono text-xs">PENGHANCUR UKURAN FILE</h4>
+                      <h4 className="font-bold text-brand-green text-xs">PENGHANCUR UKURAN FILE</h4>
                       <p className="text-xs text-brand-gray-600">
                         WebP didukung oleh kompresi murni Google yang menghasilkan dimensi ukuran visual sampai 34% lebih kerdil dibandingkan JPEG, tanpa mencoreng kualitas gambar yang terlihat mata manusia.
                       </p>
                     </div>
                     <div className="p-4 rounded-xl bg-brand-gray-900 border border-brand-gray-700/60 space-y-2">
-                      <h4 className="font-bold text-brand-green font-mono text-xs">OPTIMASI CORE WEB VITALS</h4>
+                      <h4 className="font-bold text-brand-green text-xs">OPTIMASI CORE WEB VITALS</h4>
                       <p className="text-xs text-brand-gray-600">
                         Mengurangi beban Page Speed secara keseluruhan. Kecepatan situs yang kencang langsung berdampak positif pada skor Largest Contentful Paint (LCP) dan Cumulative Layout Shift (CLS) yang dinilai oleh bot crawler mesin pencari Google.
                       </p>
@@ -736,7 +736,7 @@ export default function App() {
 
                 <section className="space-y-3">
                   <h2 className="text-lg font-bold text-white border-b border-brand-gray-700 pb-1.5">🛠️ Struktur Arsitektur Kode</h2>
-                  <ul className="list-disc pl-5 space-y-2 font-mono text-xs">
+                  <ul className="list-disc pl-5 space-y-2 text-xs">
                     <li><strong className="text-white">/package.json</strong> - Manajemen dependensi (React 19, Tailwind CSS v4, Motion).</li>
                     <li><strong className="text-white">/src/App.tsx</strong> - Kode sumber utama (Canvas Compressor Logic, Drag & Drop State).</li>
                     <li><strong className="text-white">/src/index.css</strong> - Tema visual Obsidian Slate kustom dengan kombinasi warna Hijau Neon (#00FF66).</li>
