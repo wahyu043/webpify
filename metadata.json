@@ -1,0 +1,6 @@
+{
+  "name": "Image to WebP Converter",
+  "description": "A high-performance client-side image converter to WebP format, optimized for web developers and SEO specialists.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

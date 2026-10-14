@@ -1,0 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Montserrat", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  
+  --color-brand-green: #00ff66;
+  --color-brand-gray-900: #0a0e14;
+  --color-brand-gray-800: #121820;
+  --color-brand-gray-700: #1e2630;
+  --color-brand-gray-600: #2c3846;
+}
+
+body {
+  background-color: var(--color-brand-gray-900);
+  color: #f3f4f6;
+  font-family: var(--font-sans);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-brand-gray-900);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-brand-gray-700);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-brand-green);
+}
