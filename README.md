@@ -2,7 +2,7 @@
 
    Convert images to WebP right in your browser. Fast, private, and no uploads.
 
-   > **Live:** https://webpify.wahyumahmudi.com *(coming soon)*
+   > **Live:** https://webpify.wahyumahmudi.com
    > **Bahasa Indonesia:** Panduan teknis dan manfaat SEO lengkap ada di [DOKUMENTASI.md](./DOKUMENTASI.md).
 
    A client-side web app that converts and compresses images (PNG, JPEG, GIF, BMP, etc.) into Google's WebP format using the HTML5 Canvas API. Your files never leave your device.
