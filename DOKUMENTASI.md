@@ -1,61 +1,60 @@
-# 🚀 DOKUMENTASI PROYEK: WebP Image Converter (Client-Side & SEO Optimized)
+# Dokumentasi Webpify
 
-Selamat datang di dokumentasi resmi proyek **WebP Image Converter**. Aplikasi ini dirancang menggunakan arsitektur modern berbasis **React 19**, **Vite**, **Tailwind CSS v4**, dan **Motion**. 
+Webpify adalah konverter gambar ke WebP yang jalan sepenuhnya di browser. Gambar Anda tidak diunggah ke server mana pun, jadi cepat, privat, dan tidak membebani hosting.
 
-Tujuan utama dari aplikasi ini adalah memberikan solusi kompresi dan konversi citra digital ke format generasi berikutnya (WebP) secara massal (*batch*) yang sangat cepat, aman, dan tanpa membebani server/hosting Anda.
+Dibuat dengan React 19, Vite, Tailwind CSS v4, dan Motion. Versi pertamanya dihasilkan lewat Google AI Studio, lalu dikembangkan dan dirawat oleh Wahyu Mahmudiyanto.
 
----
-
-## 💡 Filosofi & Keunggulan Utama
-
-Sebagai seorang pengembang atau praktisi SEO, optimalisasi ukuran aset visual adalah faktor krusial yang berdampak langsung pada performa situs dan retensi audiens. Aplikasi ini dibangun dengan standar arsitektur **Zero-Server-Load**:
-
-1. **100% Client-Side Processing**: Konversi gambar dilakukan langsung di peramban (*web browser*) pengguna memanfaatkan **HTML5 Canvas API**. Tidak ada berkas yang diunggah ke server eksternal ataupun VPS Anda.
-2. **Performa VPS Terjaga**: Karena semua kompresi dialihkan ke sisi klien, server hosting Anda (misalnya jika dideploy di VPS dengan HestiaCP/Nginx) sama sekali tidak akan mengalami lonjakan penggunaan RAM atau CPU harian.
-3. **Privasi Maksimal**: Data gambar sensitif milik user tidak pernah meninggalkan komputer lokal mereka.
-4. **Optimasi Core Web Vitals (SEO)**: File WebP secara rata-rata **25% s.d. 34% lebih kecil** dibandingkan JPEG/PNG pada kualitas visual yang sama. Kecepatan muat gambar yang meningkat pesat akan mengoptimalkan metrik **LCP (Largest Contentful Paint)** pada Google PageSpeed Insights.
+Kode sumber: https://github.com/wahyu043/webpify
 
 ---
 
-## 🛠️ Tech Stack & Spesifikasi Sistem
+## Kenapa Dibuat Seperti Ini
 
-Aplikasi ini dibangun menggunakan pustaka modern yang sangat ringan dan efisien:
+Ukuran gambar ikut menentukan kecepatan halaman, dan kecepatan halaman ikut menentukan pengalaman pengunjung. Webpify dirancang supaya tidak ada beban di sisi server:
 
-*   **Frontend Library**: React 19 (Functional Components & Hooks)
-*   **Build Tool**: Vite v6 (Super Cepat, Hot Module Replacement siap pakai)
-*   **Styling Engine**: Tailwind CSS v4 (Aesthetic Obsidian Slate dengan aksen hijau neon `emerald` hemat daya mata)
-*   **Animations**: Motion (untuk interaksi antrean dan transisi micro-interactions yang mulus)
-*   **Icons Resource**: Lucide React (Ikon SVG bersih, responsif, dan ringan)
-*   **Core Logic**: FileReader & HTML5 Canvas API
+1. **Konversi di browser.** Gambar diproses dengan HTML5 Canvas API di komputer pengguna. Tidak ada file yang dikirim ke server.
+2. **Server tetap ringan.** Karena kompresi dikerjakan di sisi pengguna, hosting Anda (VPS dengan HestiaCP/Nginx atau hosting biasa) tidak terbebani lonjakan RAM atau CPU.
+3. **Privasi terjaga.** Gambar pribadi atau sensitif tidak pernah keluar dari perangkat pengguna.
+4. **Lebih ringan untuk SEO.** Menurut Google, WebP lossy bisa 25-34% lebih kecil dari JPEG pada kualitas yang terlihat sama, dan WebP lossless sekitar 26% lebih kecil dari PNG. Gambar yang lebih ringan membantu skor LCP (Largest Contentful Paint) di Core Web Vitals.
 
 ---
 
-## 📂 Struktur Direktori Proyek
+## Teknologi
+
+- **React 19**: antarmuka
+- **Vite 6**: build tool dan dev server
+- **Tailwind CSS v4**: styling, tema gelap dengan aksen hijau
+- **Motion**: animasi antrean dan transisi
+- **Lucide React**: ikon
+- **FileReader dan HTML5 Canvas API**: membaca dan mengonversi gambar
+
+---
+
+## Struktur Direktori
 
 ```bash
-├── .env.example         # Template variabel lingkungan
-├── .gitignore           # File pengabaian Git (mengabaikan node_modules, dist, dll)
-├── index.html           # Entri titik utama HTML5
-├── metadata.json        # Pengaturan persetujuan frame & nama aplikasi AI Studio
-├── package.json         # Pengaturan ketergantungan dan modul Node.js
-├── vite.config.ts       # Konfigurasi bundler Vite
-├── tsconfig.json        # Aturan kompilasi TypeScript
+├── .gitignore           # Mengabaikan node_modules, dist, dan file .env
+├── index.html           # Titik masuk HTML, termasuk title dan meta SEO
+├── metadata.json        # Metadata bawaan Google AI Studio
+├── package.json         # Dependensi dan script npm
+├── vite.config.ts       # Konfigurasi Vite
+├── tsconfig.json        # Konfigurasi TypeScript
 └── src/
-    ├── main.tsx         # Inisialisasi awal aplikasi React
-    ├── App.tsx          # Komponen utama: Drag & Drop, Canvas WebP Compressor, & Queue Controller
-    └── index.css        # Konfigurasi gaya global, Google Font Montserrat & JetBrains Mono, dan variabel tema custom
+    ├── main.tsx         # Inisialisasi aplikasi React
+    ├── App.tsx          # Komponen utama: drag and drop, konverter Canvas, antrean
+    └── index.css        # Gaya global, font JetBrains Mono, variabel warna tema
 ```
 
 ---
 
-## ⚙️ Logika Inti Konversi (HTML5 Canvas to WebP)
+## Cara Kerja Konversi
 
-Berikut adalah ringkasan potongan kode utama yang bertanggung jawab melakukan konversi gambar di dalam berkas `/src/App.tsx`:
+Inti konversinya ada di `src/App.tsx`. Ringkasannya: file dibaca, digambar ke Canvas, lalu diekspor sebagai WebP dengan kualitas yang dipilih.
 
 ```typescript
 const processToWebP = (
   file: File,
-  quality: number // Nilai 0.1 hingga 1.0
+  quality: number // 0.1 sampai 1.0
 ): Promise<{ url: string; size: number }> => {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -72,10 +71,10 @@ const processToWebP = (
           return;
         }
 
-        // Gambar ulang aset asli ke lembar Canvas lokal
+        // Gambar ulang gambar asli ke Canvas
         ctx.drawImage(img, 0, 0);
 
-        // Ekspor Canvas menjadi format gambar webp beserta kualitas target
+        // Ekspor Canvas sebagai WebP dengan kualitas target
         canvas.toBlob(
           (blob) => {
             if (!blob) {
@@ -101,59 +100,56 @@ const processToWebP = (
 };
 ```
 
-*   **Optimasi Memori**: Setelah gambar diunduh atau dihapus dari antrean, tautan objek lokal yang dibuat oleh `URL.createObjectURL` akan dilepaskan menggunakan fungsi `URL.revokeObjectURL(url)` untuk mencegah kebocoran memori (*memory leak*) pada browser klien.
+**Soal memori:** tautan sementara dari `URL.createObjectURL` dilepas dengan `URL.revokeObjectURL(url)` setelah gambar diunduh atau dihapus dari antrean, supaya browser tidak menumpuk memori yang tidak terpakai.
 
 ---
 
-## 📈 Panduan Optimasi SEO Gambar (Web Gambar/Blog)
+## Batasan
 
-Untuk mencapai performa optimal dan mendongkrak peringkat artikel Anda di SERP (Search Engine Result Page), ikuti *best practices* berikut melalui aplikasi WebP Converter ini:
+Karena memakai Canvas, ada beberapa hal yang perlu Anda ketahui:
 
-1. **Gunakan Nilai Kualitas Emas (Quality 75%)**: 
-   *   Mengapa 75%? Merupakan standar baku dari Google. Di atas 80%, ukuran file akan meningkat signifikan tanpa ada perbedaan kualitas visual yang kentara di mata manusia biasa. Di bawah 60%, pikselasi halus mulai terlihat.
-2. **Gunakan Penamaan Berkas yang Ramah SEO (SEO-Friendly Alt & Filename)**:
-   *   Sebelum mengonversi, pastikan nama berkas Anda menggambarkan isi gambar dan dipisahkan tanda hubung. Contoh: `manfaat-beras-organik-untuk-diabetes.jpg` yang nantinya dikonversi otomatis menjadi `manfaat-beras-organik-untuk-diabetes.webp` (Jangan gunakan spasi atau simbol aneh).
-3. **Kompresi Batch Semakin Mudah**:
-   *   Anda dapat langsung memproses hingga puluhan gambar sekaligus. Setelah semuanya terkonversi dengan tanda hijau "Success", klik tombol **"UNDUH SEMUA"** untuk mengambil tumpukan gambar secara instan.
+- **GIF animasi** hanya menghasilkan satu gambar diam (frame pertama).
+- **Metadata gambar** (misalnya EXIF seperti lokasi dan info kamera) tidak ikut terbawa ke hasil.
+- **Gambar sangat besar** bisa lambat atau gagal diproses, tergantung memori perangkat dan browser.
 
 ---
 
-## 🏃 Cara Menjalankan Aplikasi di Lokal
+## Tips SEO untuk Gambar
 
-Jika Anda ingin mengkloning dan menjalankan proyek ini di komputer Anda menggunakan terminal/CLI:
+1. **Pakai kualitas 75% sebagai titik awal.** Angka ini adalah nilai bawaan `cwebp`, tool resmi WebP dari Google, dan titik tengah yang aman antara ukuran dan kualitas. Naikkan kalau gambarnya penuh detail halus, turunkan kalau ukuran file jadi prioritas. Selalu cek hasilnya dengan mata sendiri.
+2. **Namai file sebelum dikonversi.** Nama file ikut dibaca mesin pencari, jadi buat yang menggambarkan isi gambar, huruf kecil, dan dipisah tanda hubung. Contoh: `manfaat-beras-organik-untuk-diabetes.jpg` akan menjadi `manfaat-beras-organik-untuk-diabetes.webp`. Hindari spasi dan simbol aneh.
+3. **Proses banyak gambar sekaligus.** Masukkan beberapa file ke antrean, tunggu sampai berstatus berhasil, lalu klik **UNDUH SEMUA**.
+4. **Jangan lupa atribut `alt`, `width`, dan `height`.** Webpify hanya mengonversi format. Teks alternatif dan dimensi gambar tetap perlu Anda isi di halaman web, dan atribut dimensi inilah yang menjaga layout tidak bergeser saat gambar dimuat.
 
-### 1. Prasyarat (*Prerequisites*)
-Pastikan Anda sudah menginstal **Node.js** (Rekomendasi v18 ke atas) dan pengelola paket pilihan Anda (`npm` atau `pnpm`).
+---
 
-### 2. Instalasi Dependensi
-Jalankan perintah berikut pada direktori utama proyek:
+## Menjalankan di Lokal
+
+**Prasyarat:** Node.js (disarankan v18 ke atas) dan npm.
+
+Pasang dependensi:
 ```bash
 npm install
 ```
 
-### 3. Menjalankan dalam Mode Pengembangan (Development)
-Jalankan dev server lokal dengan perintah:
+Jalankan mode pengembangan:
 ```bash
 npm run dev
 ```
-Aplikasi akan aktif di URL `http://localhost:3000` (atau port default yang diarahkan oleh sistem).
+Buka `http://localhost:3000`.
 
-### 4. Melakukan Kompilasi Produksi (Production Build)
-Untuk memaketkan aplikasi menjadi file HTML/JS statis siap di-hosting gratis ke Vercel, Netlify, Cloudflare Pages, atau VPS Anda:
+Build untuk produksi:
 ```bash
 npm run build
 ```
-Hasil paket distribusi siap pakai akan berada di dalam direktori `/dist/`.
+Hasilnya ada di folder `dist/`, berupa file statis yang bisa langsung dipasang di Vercel, Netlify, Cloudflare Pages, atau hosting dan VPS sendiri.
 
 ---
 
-## 🎨 Detail Desain Visual
+## Tampilan
 
-Aplikasi ini menggunakan filosofi **Obsidian Cyberpunk** yang bersih dan profesional:
-- **Latar Belakang**: Soft off-black charcoal (`#0a0e14` dan `#121820`) yang sangat ramah di mata untuk kerja durasi lama.
-- **Aksen Utama**: Hijau Neon Cyberpunk / Emerald (`#00ff66`) untuk memberi kontras tinggi pada metrics data dan petunjuk tombol tindakan.
-- **Tipografi**: Menggunakan kombinasi font **Montserrat** untuk keterbacaan modern pada judul utama, serta **JetBrains Mono** untuk representasi data statistik numerik dan ukuran file.
+Webpify sengaja dibuat gelap, bersih, dan nyaman dibaca lama, dengan warna yang selaras dengan portfolio pembuatnya:
 
----
-
-*Dokumentasi ini ditulis dengan penuh dedikasi untuk mendukung produktivitas pengembang, blogger, dan praktisi pengoptimal web. Semoga proyek ini membantu mendongkrak skor PageSpeed situs Anda hingga menyentuh angka 100! 🚀*
+- **Latar belakang:** abu gelap (`#111827` dan `#1f2937`).
+- **Aksen:** hijau (`#4ade80`) untuk angka penting dan tombol aksi.
+- **Tipografi:** font sistem untuk teks, dan JetBrains Mono khusus untuk angka dan ukuran file.

@@ -17,7 +17,7 @@
 - **Pure Client-Side Processing:** No server overhead. Safe and serverless.
 - **Configurable Quality Slider:** Perfect compression sweet spot at 75% for ideal SEO rankings and file size reduction.
 - **Instant Reduction Analytics:** Active visual counters listing original vs converted sizes and exact bandwidth savings percentages.
-- **Aesthetic Cyberpunk Slate Theme:** Smooth dark interface built with custom Montserrat headings, JetBrains Mono data values, and sleek emerald green accents.
+- **Dark Theme:** Dark interface with green accents, JetBrains Mono for numbers, and readable text sizes.
 - **Batch Downloading:** Trigger sequential automatic downloads for the entire queue with a single click.
 
 ---
