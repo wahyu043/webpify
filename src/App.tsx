@@ -671,8 +671,8 @@ export default function App() {
                 <div className="flex items-center space-x-2.5">
                   <BookOpen className="w-5 h-5 text-brand-green" />
                   <div>
-                    <h3 className="text-md font-bold text-white">Dokumentasi Proyek WebP Converter</h3>
-                    <p className="text-xs text-brand-gray-600">README_ID.md - Spesifikasi Teknis & Panduan SEO</p>
+                    <h3 className="text-md font-bold text-white">Dokumentasi Proyek Webpify</h3>
+                    <p className="text-xs text-brand-gray-600">DOKUMENTASI.md - Spesifikasi Teknis & Panduan SEO</p>
                   </div>
                 </div>
                 <button
@@ -694,7 +694,7 @@ export default function App() {
                     Tentang Proyek
                   </h2>
                   <p>
-                    <strong>WebP Image Converter</strong> adalah aplikasi tool berbasis web responsif yang dirancang untuk mempercepat alur kerja optimasi aset visual web developer dan spesialis SEO. Aplikasi ini beroperasi sepenuhnya secara <strong>client-side murni</strong>, artinya tidak ada satu pun byte gambar yang diunggah ke server eksternal demi menjamin keamanan data dan menghemat bandwidth.
+                    <strong>Webpify</strong> adalah aplikasi tool berbasis web responsif yang dirancang untuk mempercepat alur kerja optimasi aset visual web developer dan spesialis SEO. Aplikasi ini beroperasi sepenuhnya secara <strong>client-side murni</strong>, artinya tidak ada satu pun byte gambar yang diunggah ke server eksternal demi menjamin keamanan data dan menghemat bandwidth.
                   </p>
                 </section>
 
@@ -739,8 +739,8 @@ export default function App() {
                   <ul className="list-disc pl-5 space-y-2 text-xs">
                     <li><strong className="text-white">/package.json</strong> - Manajemen dependensi (React 19, Tailwind CSS v4, Motion).</li>
                     <li><strong className="text-white">/src/App.tsx</strong> - Kode sumber utama (Canvas Compressor Logic, Drag & Drop State).</li>
-                    <li><strong className="text-white">/src/index.css</strong> - Tema visual Obsidian Slate kustom dengan kombinasi warna Hijau Neon (#00FF66).</li>
-                    <li><strong className="text-white">/README_ID.md</strong> - Dokumentasi proyek lengkap bahasa Indonesia (Dapat Anda unduh / salin langsung).</li>
+                    <li><strong className="text-white">/src/index.css</strong> - Tema visual dark slate dengan aksen hijau (#4ade80), selaras dengan portfolio.</li>
+                    <li><strong className="text-white">/DOKUMENTASI.md</strong> - Dokumentasi proyek lengkap bahasa Indonesia (tersedia di repo GitHub).</li>
                   </ul>
                 </section>
 
