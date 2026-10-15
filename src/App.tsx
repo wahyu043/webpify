@@ -277,10 +277,10 @@ export default function App() {
               <Sparkles className="w-6 h-6 text-brand-green" />
             </div>
             <div>
-              <h1 className="text-xl md:text-2xl font-bold tracking-tight text-white flex items-center gap-2">
-                WebP <span className="text-brand-green">Converter</span>
+              <h1 className="text-xl md:text-2xl font-bold tracking-tight text-white">
+                  Web<span className="text-brand-green">pify</span>
               </h1>
-              <p className="text-sm text-brand-gray-600 mt-0.5">HIGH-PERFORMANCE CLIENT OPTIMIZER</p>
+              <p className="text-sm text-brand-gray-600 mt-0.5">Convert images to WebP, right in your browser</p>
             </div>
           </div>
           
@@ -293,7 +293,7 @@ export default function App() {
               <BookOpen className="w-4 h-4" />
               <span>DOKUMENTASI</span>
             </button>
-            <span className="hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-brand-green/10 border border-brand-green/30 text-[10px] text-brand-green uppercase tracking-widest animate-pulse">
+            <span className="hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-brand-green/10 border border-brand-green/30 text-xs text-brand-green uppercase tracking-widest animate-pulse">
               ● Client Mode
             </span>
           </div>
@@ -757,7 +757,7 @@ export default function App() {
                        </a>
                      </p>
                    </section>
-                   
+
               </div>
 
             </motion.div>
