@@ -300,7 +300,7 @@ export default function App() {
         </header>
 
         {/* Dynamic Warning for Host constraints or browser optimization */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <main className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           
           {/* LEFT PANEL: CONFIGURATION & PROGRESS QUEUE */}
           <div className="lg:col-span-8 space-y-6">
@@ -651,7 +651,7 @@ export default function App() {
 
           </div>
 
-        </div>
+        </main>
 
       </div>
 
