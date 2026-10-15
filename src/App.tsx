@@ -744,6 +744,20 @@ export default function App() {
                   </ul>
                 </section>
 
+                <section className="pt-4 border-t border-brand-gray-700 space-y-2">
+                     <p>
+                       <strong className="text-white">Open source.</strong> Webpify dibuat dengan bantuan Google AI Studio, lalu dikembangkan dan dirawat oleh Wahyu Mahmudiyanto. Kode sumber, catatan perubahan, dan panduan lengkap ada di GitHub:{' '}
+                       <a
+                         href="https://github.com/wahyu043/webpify"
+                         target="_blank"
+                         rel="noopener noreferrer"
+                         className="text-brand-green hover:underline"
+                       >
+                         github.com/wahyu043/webpify
+                       </a>
+                     </p>
+                   </section>
+                   
               </div>
 
             </motion.div>
