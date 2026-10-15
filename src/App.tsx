@@ -548,7 +548,7 @@ export default function App() {
               
               <h4 className="text-xs font-bold tracking-wider text-brand-gray-600 uppercase mb-4 flex items-center gap-1.5">
                 <FileCheck className="w-3.5 h-3.5 text-brand-green" />
-                RINGKASAN OPTIMASI BATCH
+                RINGKASAN HASIL
               </h4>
 
               <div className="space-y-5">
@@ -558,23 +558,23 @@ export default function App() {
                     {/* Progress Percentage Gauge block */}
                     <div className="bg-brand-gray-900 border border-brand-gray-700/75 rounded-xl p-5 text-center relative overflow-hidden">
                       <div className="space-y-1">
-                        <span className="text-xs text-brand-gray-600 uppercase tracking-widest block">Total Penghematan Ukuran</span>
+                        <span className="text-xs text-brand-gray-600 uppercase tracking-widest block">Ukuran file berkurang</span>
                         <h3 className="text-4xl font-black text-brand-green leading-none tracking-tight font-mono">
                           -{averageSavingsPercent}%
                         </h3>
                         <p className="text-xs text-brand-gray-600 mt-1">
-                          Menyelamatkan <span className="text-white font-semibold">{formatSize(Math.max(0, totalSavedBytes))}</span>
+                          Hemat <span className="text-white font-semibold">{formatSize(Math.max(0, totalSavedBytes))}</span>
                         </p>
                       </div>
                     </div>
 
                     <div className="space-y-3 text-xs font-mono">
                       <div className="flex justify-between py-1 border-b border-brand-gray-700/40">
-                        <span className="text-brand-gray-600">Total File</span>
+                        <span className="text-brand-gray-600">Jumlah gambar</span>
                         <span className="text-white font-bold">{images.length} Gambar</span>
                       </div>
                       <div className="flex justify-between py-1 border-b border-brand-gray-700/40">
-                        <span className="text-brand-gray-600">Ukuran Awal</span>
+                        <span className="text-brand-gray-600">Ukuran Asli</span>
                         <span className="text-white">{formatSize(totalOriginalSize)}</span>
                       </div>
                       <div className="flex justify-between py-1 border-b border-brand-gray-700/40">
@@ -604,15 +604,15 @@ export default function App() {
                           disabled
                           className="w-full py-3 px-4 rounded-xl bg-brand-gray-700 text-brand-gray-600 cursor-not-allowed font-medium text-xs"
                         >
-                          Menunggu Konversi Berhasil...
+                          Menunggu gambar selesai diproses...
                         </button>
                       )}
                     </div>
                   </>
                 ) : (
                   <div className="text-center py-6 space-y-2 text-brand-gray-600 text-xs">
-                    <p>Belum ada data visualisasi optimasi.</p>
-                    <p className="text-xs text-brand-gray-600">Garis grafik dan persentase penghematan hosting akan tampil di sini saat batch file masuk.</p>
+                    <p>Belum ada hasil.</p>
+                    <p className="text-xs text-brand-gray-600">Masukkan gambar dulu, nanti di sini kelihatan berapa banyak ukurannya berkurang.</p>
                   </div>
                 )}
 
@@ -623,27 +623,27 @@ export default function App() {
             <div className="bg-brand-gray-800 border border-brand-gray-700 rounded-2xl p-6 space-y-4">
               <h4 className="text-xs font-bold tracking-wider text-brand-gray-600 uppercase flex items-center gap-2">
                 <TrendingDown className="w-4 h-4 text-brand-green" />
-                KORELASI WEBP & HASIL SEO
+                KENAPA INI PENTING UNTUK SEO
               </h4>
               
               <div className="space-y-3.5 text-xs text-brand-gray-600 leading-relaxed">
                 <div className="space-y-1.5 p-3 rounded-xl bg-brand-gray-900 border border-brand-gray-700/60">
                   <p className="font-semibold text-white flex items-center gap-1.5">
                     <span className="w-1.5 h-1.5 rounded-full bg-brand-green"></span>
-                    Meningkatkan LCP (Largest Contentful Paint)
+                    Halaman jadi lebih cepat terbuka
                   </p>
                   <p>
-                    LCP mengukur waktu muat konten visual utama halaman. Konversi PNG/JPG ke target WebP (~75% quality) mempercepat LCP hingga <span className="text-brand-green">2x lipat lebih cepat</span>, meningkatkan nilai Core Web Vitals Anda di Google Search Console.
+                    Gambar besar di bagian atas halaman sering jadi penentu skor LCP (Largest Contentful Paint), salah satu metrik Core Web Vitals di Google Search Console. Gambar yang lebih ringan bikin skor itu lebih mudah <span className="text-brand-green">masuk kategori "Good"</span>.
                   </p>
                 </div>
 
                 <div className="space-y-1.5 p-3 rounded-xl bg-brand-gray-900 border border-brand-gray-700/60">
                   <p className="font-semibold text-white flex items-center gap-1.5">
                     <span className="w-1.5 h-1.5 rounded-full bg-brand-green"></span>
-                    Menghemat Bandwidth Hosting (CDN)
+                    Hemat kuota server
                   </p>
                   <p>
-                    WebP mengompresi gambar tanpa penurunan resolusi drastis. Format lossless WebP berukuran <span className="text-brand-green">26% lebih ringkas</span> dibanding PNG, sangat vital untuk efisiensi budget server VPS atau tagihan CDN Cloudflare.
+                    Menurut Google, WebP lossless <span className="text-brand-green">sekitar 26% lebih kecil</span> dari PNG, dan versi lossy bisa 25-34% lebih kecil dari JPEG. Ukuran dan resolusi gambar tetap sama, jadi trafik server atau tagihan CDN ikut turun.
                   </p>
                 </div>
               </div>
@@ -699,40 +699,40 @@ export default function App() {
                 </section>
 
                 <section className="space-y-3">
-                  <h2 className="text-lg font-bold text-white border-b border-brand-gray-700 pb-1.5">🚀 Panduan Pengoperasian</h2>
-                  <ol className="list-decimal pl-5 space-y-2">
-                    <li>
-                      <strong>Tarik & Lepas / Pilih File:</strong> Letakkan file berekstensi JPG, JPEG, PNG, BMP, atau GIF secara massal ke area drop zone utama.
-                    </li>
-                    <li>
-                      <strong>Atur Kualitas (Quality):</strong> Atur parameter slider kompresi sesuai selera visual Anda. Nilai 75% adalah nilai emas standard industri SEO.
-                    </li>
-                    <li>
-                      <strong>Konversi Otomatis:</strong> Aplikasi memproses antrean queue secara asinkronus menggunakan HTML5 Canvas API secara instan di browser.
-                    </li>
-                    <li>
-                      <strong>Simpan Hasil secara Batch / Individu:</strong> Klik tombol hijau "UNDUH SEMUA" untuk mendownload tumpukan WebP secara sekuensial, atau simpan file secara manual satu per satu.
-                    </li>
-                  </ol>
-                </section>
+  <h2 className="text-lg font-bold text-white border-b border-brand-gray-700 pb-1.5">Cara Pakai</h2>
+  <ol className="list-decimal pl-5 space-y-2">
+    <li>
+      <strong>Masukkan gambar.</strong> Tarik beberapa file JPG, PNG, BMP, atau GIF sekaligus ke kotak putus-putus di atas, atau klik "Telusuri" untuk memilihnya manual.
+    </li>
+    <li>
+      <strong>Atur kualitas.</strong> Geser slider sesuai kebutuhan. Default 75% itu titik tengah yang aman: ukuran file turun jauh, tapi mata biasanya nggak melihat bedanya.
+    </li>
+    <li>
+      <strong>Tunggu sebentar.</strong> Konversi jalan langsung di browser Anda, jadi hasilnya muncul di antrean tanpa perlu upload ke mana pun.
+    </li>
+    <li>
+      <strong>Unduh hasilnya.</strong> Klik "UNDUH SEMUA" untuk mengambil semua file sekaligus, atau unduh satu per satu dari antrean.
+    </li>
+  </ol>
+</section>
 
-                <section className="space-y-3">
-                  <h2 className="text-lg font-bold text-white border-b border-brand-gray-700 pb-1.5">⚡ Manfaat Teknis Format WebP untuk SEO</h2>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="p-4 rounded-xl bg-brand-gray-900 border border-brand-gray-700/60 space-y-2">
-                      <h4 className="font-bold text-brand-green text-xs">PENGHANCUR UKURAN FILE</h4>
-                      <p className="text-xs text-brand-gray-600">
-                        WebP didukung oleh kompresi murni Google yang menghasilkan dimensi ukuran visual sampai 34% lebih kerdil dibandingkan JPEG, tanpa mencoreng kualitas gambar yang terlihat mata manusia.
-                      </p>
-                    </div>
-                    <div className="p-4 rounded-xl bg-brand-gray-900 border border-brand-gray-700/60 space-y-2">
-                      <h4 className="font-bold text-brand-green text-xs">OPTIMASI CORE WEB VITALS</h4>
-                      <p className="text-xs text-brand-gray-600">
-                        Mengurangi beban Page Speed secara keseluruhan. Kecepatan situs yang kencang langsung berdampak positif pada skor Largest Contentful Paint (LCP) dan Cumulative Layout Shift (CLS) yang dinilai oleh bot crawler mesin pencari Google.
-                      </p>
-                    </div>
-                  </div>
-                </section>
+<section className="space-y-3">
+  <h2 className="text-lg font-bold text-white border-b border-brand-gray-700 pb-1.5">Kenapa WebP Bagus untuk SEO</h2>
+  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div className="p-4 rounded-xl bg-brand-gray-900 border border-brand-gray-700/60 space-y-2">
+      <h4 className="font-bold text-brand-green text-xs">FILE LEBIH KECIL</h4>
+      <p className="text-xs text-brand-gray-600">
+        Menurut Google, WebP bisa 25-34% lebih kecil dari JPEG pada kualitas yang terlihat sama. Untuk halaman yang penuh gambar, selisih itu terasa di kecepatan muat.
+      </p>
+    </div>
+    <div className="p-4 rounded-xl bg-brand-gray-900 border border-brand-gray-700/60 space-y-2">
+      <h4 className="font-bold text-brand-green text-xs">LCP LEBIH CEPAT</h4>
+      <p className="text-xs text-brand-gray-600">
+        Gambar utama di bagian atas halaman sering jadi penentu skor Largest Contentful Paint (LCP), salah satu metrik Core Web Vitals. Gambar yang lebih ringan membantu skor itu membaik.
+      </p>
+    </div>
+  </div>
+</section>
 
                 <section className="space-y-3">
                   <h2 className="text-lg font-bold text-white border-b border-brand-gray-700 pb-1.5">🛠️ Struktur Arsitektur Kode</h2>
