@@ -437,7 +437,7 @@ export default function App() {
                               <div className="flex flex-wrap gap-x-3 gap-y-1 text-xs text-brand-gray-600">
                                 <span>{formatSize(item.originalSize)}</span>
                                 <span className="opacity-40">•</span>
-                                <span className="uppercase text-[10px] bg-brand-gray-700 px-1.5 py-0.2 rounded text-brand-gray-600">
+                                <span className="uppercase text-xs bg-brand-gray-700 px-1.5 py-0.2 rounded text-brand-gray-600">
                                   {item.originalType.split('/')[1]}
                                 </span>
                               </div>
@@ -462,7 +462,7 @@ export default function App() {
                                     {formatSize(item.convertedSize)}
                                   </span>
                                   {reduction !== null && (
-                                    <span className="text-[10px] text-brand-green bg-brand-green/10 border border-brand-green/20 px-1.5 py-0.1 rounded mt-0.5 inline-block">
+                                    <span className="text-xs text-brand-green bg-brand-green/10 border border-brand-green/20 px-1.5 py-0.1 rounded mt-0.5 inline-block">
                                       Saved {reduction}%
                                     </span>
                                   )}
@@ -558,7 +558,7 @@ export default function App() {
                     {/* Progress Percentage Gauge block */}
                     <div className="bg-brand-gray-900 border border-brand-gray-700/75 rounded-xl p-5 text-center relative overflow-hidden">
                       <div className="space-y-1">
-                        <span className="text-[10px] text-brand-gray-600 uppercase tracking-widest block">Total Penghematan Ukuran</span>
+                        <span className="text-xs text-brand-gray-600 uppercase tracking-widest block">Total Penghematan Ukuran</span>
                         <h3 className="text-4xl font-black text-brand-green leading-none tracking-tight font-mono">
                           -{averageSavingsPercent}%
                         </h3>
@@ -612,7 +612,7 @@ export default function App() {
                 ) : (
                   <div className="text-center py-6 space-y-2 text-brand-gray-600 text-xs">
                     <p>Belum ada data visualisasi optimasi.</p>
-                    <p className="text-[10px] text-brand-gray-600">Garis grafik dan persentase penghematan hosting akan tampil di sini saat batch file masuk.</p>
+                    <p className="text-xs text-brand-gray-600">Garis grafik dan persentase penghematan hosting akan tampil di sini saat batch file masuk.</p>
                   </div>
                 )}
 
@@ -672,7 +672,7 @@ export default function App() {
                   <BookOpen className="w-5 h-5 text-brand-green" />
                   <div>
                     <h3 className="text-md font-bold text-white">Dokumentasi Proyek WebP Converter</h3>
-                    <p className="text-[10px] text-brand-gray-600">README_ID.md - Spesifikasi Teknis & Panduan SEO</p>
+                    <p className="text-xs text-brand-gray-600">README_ID.md - Spesifikasi Teknis & Panduan SEO</p>
                   </div>
                 </div>
                 <button
