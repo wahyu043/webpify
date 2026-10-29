@@ -1,9 +1,10 @@
 import { useState, useRef, useEffect } from 'react';
-import { 
-  Upload, Image as ImageIcon, ArrowRight, Download, Sparkles, 
-  Trash2, Settings, Check, BookOpen, AlertCircle, RefreshCw, 
+import {
+  Upload, Image as ImageIcon, ArrowRight, Download, Sparkles,
+  Trash2, Settings, Check, BookOpen, AlertCircle, RefreshCw,
   Info, TrendingDown, HelpCircle, FileCheck, ChevronRight, Minimize2
 } from 'lucide-react';
+import JSZip from 'jszip';
 import { motion, AnimatePresence } from 'motion/react';
 
 interface ImageItem {
@@ -97,8 +98,8 @@ export default function App() {
     // Update status to converting
     setImages((prev) =>
       prev.map((img) =>
-        img.id === item.id 
-          ? { ...img, status: 'converting', quality: qualityToUse } 
+        img.id === item.id
+          ? { ...img, status: 'converting', quality: qualityToUse }
           : img
       )
     );
@@ -109,11 +110,11 @@ export default function App() {
         prev.map((img) =>
           img.id === item.id
             ? {
-                ...img,
-                convertedUrl: result.url,
-                convertedSize: result.size,
-                status: 'success',
-              }
+              ...img,
+              convertedUrl: result.url,
+              convertedSize: result.size,
+              status: 'success',
+            }
             : img
         )
       );
@@ -122,10 +123,10 @@ export default function App() {
         prev.map((img) =>
           img.id === item.id
             ? {
-                ...img,
-                status: 'failed',
-                error: err.message || 'Gagal mengonversi',
-              }
+              ...img,
+              status: 'failed',
+              error: err.message || 'Gagal mengonversi',
+            }
             : img
         )
       );
@@ -230,14 +231,40 @@ export default function App() {
     document.body.removeChild(link);
   };
 
-  // Concurrent bulk download with a slight delays to bypass browser block popup
-  const downloadAllSuccess = () => {
-    const successItems = images.filter((img) => img.status === 'success');
-    successItems.forEach((item, index) => {
-      setTimeout(() => {
-        downloadSingle(item);
-      }, index * 200);
-    });
+  // Bundle semua hasil sukses jadi satu file ZIP
+  const downloadAllSuccess = async () => {
+    const successItems = images.filter(
+      (img) => img.status === 'success' && img.convertedUrl
+    );
+    if (successItems.length === 0) return;
+
+    const zip = new JSZip();
+    const usedNames = new Map<string, number>();
+
+    for (const item of successItems) {
+      const baseName =
+        item.name.substring(0, item.name.lastIndexOf('.')) || item.name;
+
+      // Hindari nama kembar (mis. foto.png & foto.jpg -> foto.webp & foto-1.webp)
+      const count = usedNames.get(baseName) ?? 0;
+      usedNames.set(baseName, count + 1);
+      const fileName = count === 0 ? `${baseName}.webp` : `${baseName}-${count}.webp`;
+
+      const blob = await (await fetch(item.convertedUrl!)).blob();
+      zip.file(fileName, blob);
+    }
+
+    // WebP sudah terkompres, jadi pakai STORE biar generate ZIP lebih cepat
+    const zipBlob = await zip.generateAsync({ type: 'blob', compression: 'STORE' });
+
+    const url = URL.createObjectURL(zipBlob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'webpify-images.zip';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
   };
 
   // Automatically process files as soon as they are added (helpful UX step)
@@ -257,19 +284,19 @@ export default function App() {
     0
   );
   const totalSavedBytes = totalOriginalSize - totalConvertedSize;
-  const averageSavingsPercent = totalOriginalSize > 0 
+  const averageSavingsPercent = totalOriginalSize > 0
     ? Math.max(0, Math.round((totalSavedBytes / totalOriginalSize) * 100))
     : 0;
 
   return (
     <div className="min-h-screen bg-brand-gray-900 selection:bg-brand-green/30 selection:text-brand-green relative overflow-x-hidden" id="app_root">
-      
+
       {/* Decorative Glow Grid */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-[400px] pointer-events-none opacity-20 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-brand-green/30 via-transparent to-transparent z-0"></div>
 
       {/* Main Container */}
       <div className="max-w-6xl mx-auto px-4 py-8 relative z-10">
-        
+
         {/* Navigation / Header bar */}
         <header className="flex justify-between items-center border-b border-brand-gray-700/50 pb-6 mb-10" id="app_header">
           <div className="flex items-center space-x-3">
@@ -278,12 +305,12 @@ export default function App() {
             </div>
             <div>
               <h1 className="text-xl md:text-2xl font-bold tracking-tight text-white">
-                  Web<span className="text-brand-green">pify</span>
+                Web<span className="text-brand-green">pify</span>
               </h1>
               <p className="text-sm text-brand-gray-600 mt-0.5">Convert images to WebP, right in your browser</p>
             </div>
           </div>
-          
+
           <div className="flex items-center gap-3">
             <button
               onClick={() => setShowDocModal(true)}
@@ -301,21 +328,20 @@ export default function App() {
 
         {/* Dynamic Warning for Host constraints or browser optimization */}
         <main className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          
+
           {/* LEFT PANEL: CONFIGURATION & PROGRESS QUEUE */}
           <div className="lg:col-span-8 space-y-6">
-            
+
             {/* Main Drop Area */}
             <div
               onDragOver={handleDragOver}
               onDragLeave={handleDragLeave}
               onDrop={handleDrop}
               onClick={() => fileInputRef.current?.click()}
-              className={`border-2 border-dashed rounded-2xl p-8 md:p-12 text-center cursor-pointer transition-all duration-400 relative overflow-hidden group ${
-                isDragging 
-                  ? 'border-brand-green bg-brand-green/5 shadow-lg shadow-brand-green/5' 
-                  : 'border-brand-gray-700 bg-brand-gray-800/50 hover:bg-brand-gray-800 hover:border-brand-gray-600'
-              }`}
+              className={`border-2 border-dashed rounded-2xl p-8 md:p-12 text-center cursor-pointer transition-all duration-400 relative overflow-hidden group ${isDragging
+                ? 'border-brand-green bg-brand-green/5 shadow-lg shadow-brand-green/5'
+                : 'border-brand-gray-700 bg-brand-gray-800/50 hover:bg-brand-gray-800 hover:border-brand-gray-600'
+                }`}
               id="drop_zone"
             >
               <input
@@ -326,13 +352,13 @@ export default function App() {
                 accept="image/*"
                 className="hidden"
               />
-              
+
               <div className="space-y-4">
                 <div className="mx-auto w-16 h-16 rounded-full bg-brand-gray-800 border border-brand-gray-700 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 relative">
                   <Upload className="w-7 h-7 text-brand-gray-600 group-hover:text-brand-green transition-colors duration-300" />
                   <div className="absolute inset-0 rounded-full border border-brand-green/0 group-hover:border-brand-green/20 group-hover:animate-ping"></div>
                 </div>
-                
+
                 <div className="space-y-1">
                   <h3 className="text-base md:text-lg font-semibold text-white tracking-wide">
                     Tarik & Lepas Gambar ke Sini atau <span className="text-brand-green hover:underline">Telusuri</span>
@@ -414,9 +440,8 @@ export default function App() {
                           className="bg-brand-gray-800 border border-brand-gray-700 hover:border-brand-gray-600 rounded-xl p-4 flex flex-col md:flex-row items-stretch justify-between gap-4 transition-all duration-300 relative shadow-md overflow-hidden"
                         >
                           {/* Accent bar left based on status */}
-                          <div className={`absolute top-0 bottom-0 left-0 w-1 ${
-                            item.status === 'success' ? 'bg-brand-green' : item.status === 'converting' ? 'bg-amber-400 animate-pulse' : 'bg-brand-gray-700'
-                          }`}></div>
+                          <div className={`absolute top-0 bottom-0 left-0 w-1 ${item.status === 'success' ? 'bg-brand-green' : item.status === 'converting' ? 'bg-amber-400 animate-pulse' : 'bg-brand-gray-700'
+                            }`}></div>
 
                           {/* Image Thumbnail & Metadata */}
                           <div className="flex items-center space-x-4 flex-1">
@@ -428,12 +453,12 @@ export default function App() {
                                 className="object-cover w-full h-full"
                               />
                             </div>
-                            
+
                             <div className="min-w-0 flex-1 space-y-1">
                               <p className="text-sm font-medium text-white truncate max-w-md block" title={item.name}>
                                 {item.name}
                               </p>
-                              
+
                               <div className="flex flex-wrap gap-x-3 gap-y-1 text-xs text-brand-gray-600">
                                 <span>{formatSize(item.originalSize)}</span>
                                 <span className="opacity-40">•</span>
@@ -446,7 +471,7 @@ export default function App() {
 
                           {/* Middle: Conversion Progress Details */}
                           <div className="flex flex-col md:flex-row items-center gap-4 justify-between md:min-w-[320px]">
-                            
+
                             {/* Visual flow sign */}
                             <div className="flex items-center gap-1.5 text-brand-gray-600 text-xs">
                               <div className="w-1.5 h-1.5 rounded-full bg-brand-gray-600"></div>
@@ -541,18 +566,18 @@ export default function App() {
 
           {/* RIGHT PANEL: LIVE GENERAL STATS & SUMMARY METRICS */}
           <div className="lg:col-span-4 space-y-6">
-            
+
             {/* Realtime Core Statistics */}
             <div className="bg-brand-gray-800 border border-brand-gray-700 rounded-2xl p-6 shadow-xl relative overflow-hidden" id="analytics_card">
               <div className="absolute top-0 right-0 w-24 h-24 pointer-events-none opacity-[0.03] bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-brand-green to-transparent"></div>
-              
+
               <h4 className="text-xs font-bold tracking-wider text-brand-gray-600 uppercase mb-4 flex items-center gap-1.5">
                 <FileCheck className="w-3.5 h-3.5 text-brand-green" />
                 RINGKASAN HASIL
               </h4>
 
               <div className="space-y-5">
-                
+
                 {images.length > 0 ? (
                   <>
                     {/* Progress Percentage Gauge block */}
@@ -597,7 +622,7 @@ export default function App() {
                           id="btn_download_all"
                         >
                           <Download className="w-5 h-5" />
-                          <span>UNDUH SEMUA (WEBP)</span>
+                          <span>UNDUH SEMUA (ZIP)</span>
                         </button>
                       ) : (
                         <button
@@ -625,7 +650,7 @@ export default function App() {
                 <TrendingDown className="w-4 h-4 text-brand-green" />
                 KENAPA INI PENTING UNTUK SEO
               </h4>
-              
+
               <div className="space-y-3.5 text-xs text-brand-gray-600 leading-relaxed">
                 <div className="space-y-1.5 p-3 rounded-xl bg-brand-gray-900 border border-brand-gray-700/60">
                   <p className="font-semibold text-white flex items-center gap-1.5">
@@ -665,7 +690,7 @@ export default function App() {
               exit={{ scale: 0.95, opacity: 0 }}
               className="bg-brand-gray-800 border border-brand-gray-700 w-full max-w-4xl max-h-[85vh] rounded-2xl flex flex-col overflow-hidden shadow-2xl relative"
             >
-              
+
               {/* Modal Header */}
               <div className="p-5 border-b border-brand-gray-700/80 flex items-center justify-between">
                 <div className="flex items-center space-x-2.5">
@@ -687,7 +712,7 @@ export default function App() {
 
               {/* Modal Body: Scannable Indonesian markdown representation styled cleanly */}
               <div className="p-6 md:p-8 overflow-y-auto space-y-6 text-sm text-brand-gray-600 leading-relaxed font-sans max-h-[calc(85vh-85px)]">
-                
+
                 <section className="space-y-3">
                   <h2 className="text-lg font-bold text-white border-b border-brand-gray-700 pb-1.5 flex items-center gap-2">
                     <Sparkles className="w-4 h-4 text-brand-green" />
@@ -699,40 +724,40 @@ export default function App() {
                 </section>
 
                 <section className="space-y-3">
-  <h2 className="text-lg font-bold text-white border-b border-brand-gray-700 pb-1.5">Cara Pakai</h2>
-  <ol className="list-decimal pl-5 space-y-2">
-    <li>
-      <strong>Masukkan gambar.</strong> Tarik beberapa file JPG, PNG, BMP, atau GIF sekaligus ke kotak putus-putus di atas, atau klik "Telusuri" untuk memilihnya manual.
-    </li>
-    <li>
-      <strong>Atur kualitas.</strong> Geser slider sesuai kebutuhan. Default 75% itu titik tengah yang aman: ukuran file turun jauh, tapi mata biasanya nggak melihat bedanya.
-    </li>
-    <li>
-      <strong>Tunggu sebentar.</strong> Konversi jalan langsung di browser Anda, jadi hasilnya muncul di antrean tanpa perlu upload ke mana pun.
-    </li>
-    <li>
-      <strong>Unduh hasilnya.</strong> Klik "UNDUH SEMUA" untuk mengambil semua file sekaligus, atau unduh satu per satu dari antrean.
-    </li>
-  </ol>
-</section>
+                  <h2 className="text-lg font-bold text-white border-b border-brand-gray-700 pb-1.5">Cara Pakai</h2>
+                  <ol className="list-decimal pl-5 space-y-2">
+                    <li>
+                      <strong>Masukkan gambar.</strong> Tarik beberapa file JPG, PNG, BMP, atau GIF sekaligus ke kotak putus-putus di atas, atau klik "Telusuri" untuk memilihnya manual.
+                    </li>
+                    <li>
+                      <strong>Atur kualitas.</strong> Geser slider sesuai kebutuhan. Default 75% itu titik tengah yang aman: ukuran file turun jauh, tapi mata biasanya nggak melihat bedanya.
+                    </li>
+                    <li>
+                      <strong>Tunggu sebentar.</strong> Konversi jalan langsung di browser Anda, jadi hasilnya muncul di antrean tanpa perlu upload ke mana pun.
+                    </li>
+                    <li>
+                      <strong>Unduh hasilnya.</strong> Klik "UNDUH SEMUA" untuk mengambil semua file sekaligus, atau unduh satu per satu dari antrean.
+                    </li>
+                  </ol>
+                </section>
 
-<section className="space-y-3">
-  <h2 className="text-lg font-bold text-white border-b border-brand-gray-700 pb-1.5">Kenapa WebP Bagus untuk SEO</h2>
-  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-    <div className="p-4 rounded-xl bg-brand-gray-900 border border-brand-gray-700/60 space-y-2">
-      <h4 className="font-bold text-brand-green text-xs">FILE LEBIH KECIL</h4>
-      <p className="text-xs text-brand-gray-600">
-        Menurut Google, WebP bisa 25-34% lebih kecil dari JPEG pada kualitas yang terlihat sama. Untuk halaman yang penuh gambar, selisih itu terasa di kecepatan muat.
-      </p>
-    </div>
-    <div className="p-4 rounded-xl bg-brand-gray-900 border border-brand-gray-700/60 space-y-2">
-      <h4 className="font-bold text-brand-green text-xs">LCP LEBIH CEPAT</h4>
-      <p className="text-xs text-brand-gray-600">
-        Gambar utama di bagian atas halaman sering jadi penentu skor Largest Contentful Paint (LCP), salah satu metrik Core Web Vitals. Gambar yang lebih ringan membantu skor itu membaik.
-      </p>
-    </div>
-  </div>
-</section>
+                <section className="space-y-3">
+                  <h2 className="text-lg font-bold text-white border-b border-brand-gray-700 pb-1.5">Kenapa WebP Bagus untuk SEO</h2>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="p-4 rounded-xl bg-brand-gray-900 border border-brand-gray-700/60 space-y-2">
+                      <h4 className="font-bold text-brand-green text-xs">FILE LEBIH KECIL</h4>
+                      <p className="text-xs text-brand-gray-600">
+                        Menurut Google, WebP bisa 25-34% lebih kecil dari JPEG pada kualitas yang terlihat sama. Untuk halaman yang penuh gambar, selisih itu terasa di kecepatan muat.
+                      </p>
+                    </div>
+                    <div className="p-4 rounded-xl bg-brand-gray-900 border border-brand-gray-700/60 space-y-2">
+                      <h4 className="font-bold text-brand-green text-xs">LCP LEBIH CEPAT</h4>
+                      <p className="text-xs text-brand-gray-600">
+                        Gambar utama di bagian atas halaman sering jadi penentu skor Largest Contentful Paint (LCP), salah satu metrik Core Web Vitals. Gambar yang lebih ringan membantu skor itu membaik.
+                      </p>
+                    </div>
+                  </div>
+                </section>
 
                 <section className="space-y-3">
                   <h2 className="text-lg font-bold text-white border-b border-brand-gray-700 pb-1.5">🛠️ Struktur Arsitektur Kode</h2>
@@ -745,18 +770,18 @@ export default function App() {
                 </section>
 
                 <section className="pt-4 border-t border-brand-gray-700 space-y-2">
-                     <p>
-                       <strong className="text-white">Open source.</strong> Webpify dibuat dengan bantuan Google AI Studio, lalu dikembangkan dan dirawat oleh Wahyu Mahmudiyanto. Kode sumber, catatan perubahan, dan panduan lengkap ada di GitHub:{' '}
-                       <a
-                         href="https://github.com/wahyu043/webpify"
-                         target="_blank"
-                         rel="noopener noreferrer"
-                         className="text-brand-green hover:underline"
-                       >
-                         github.com/wahyu043/webpify
-                       </a>
-                     </p>
-                   </section>
+                  <p>
+                    <strong className="text-white">Open source.</strong> Webpify dibuat dengan bantuan Google AI Studio, lalu dikembangkan dan dirawat oleh Wahyu Mahmudiyanto. Kode sumber, catatan perubahan, dan panduan lengkap ada di GitHub:{' '}
+                    <a
+                      href="https://github.com/wahyu043/webpify"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-brand-green hover:underline"
+                    >
+                      github.com/wahyu043/webpify
+                    </a>
+                  </p>
+                </section>
 
               </div>
 
